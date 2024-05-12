@@ -13,7 +13,7 @@ import apiRouter from "./routes/api";
 import webRouter from "./routes/index";
 
 dotenv.config();
-export const PORT: string | undefined = process.env.PORT;
+export const PORT: any | undefined = process.env.PORT || 8000;
 
 const app: Application = express();
 
@@ -25,8 +25,8 @@ const server: http.Server = http.createServer(app);
 const io: SocketSever = new SocketSever(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
 
 chatSocket(io);
@@ -37,7 +37,7 @@ app.use("/api", apiRouter);
 
 app.use("*", (req: Request, res: Response) => {
   res.status(404).json({
-    message: "Route does not exist"
+    message: "Route does not exist",
   });
 });
 
