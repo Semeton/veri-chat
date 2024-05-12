@@ -25,8 +25,8 @@ const server: http.Server = http.createServer(app);
 const io: SocketSever = new SocketSever(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
-  },
+    methods: ["GET", "POST"]
+  }
 });
 
 chatSocket(io);
@@ -37,8 +37,10 @@ app.use("/api", apiRouter);
 
 app.use("*", (req: Request, res: Response) => {
   res.status(404).json({
-    message: "Route does not exist",
+    message: "Route does not exist"
   });
 });
 
 export default server;
+
+// "exec": "concurrently \"npx tsc --watch \" \"tsc-node src/index.ts\""
