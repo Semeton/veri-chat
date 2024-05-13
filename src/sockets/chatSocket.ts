@@ -15,18 +15,15 @@ export default (io: Server) => {
           console.log(`User ${userId} disconnected`);
         }
       }
-      // Store the user's socket connection
       connectedUsers.set(userId, socket);
       io.emit("connected", `User ${userId} connected`);
     });
 
-    // Listen for chat messages
     socket.on("chat", (msg: string, id: number) => {
       io.emit("chat", msg, id);
       console.log(`User ${socket.id} says: `, msg);
     });
 
-    // Listen for disconnection event
     socket.on("disconnect", () => {
       connectedUsers.forEach((userSocket, userId) => {
         if (userSocket === socket) {
